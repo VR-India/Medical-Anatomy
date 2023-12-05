@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8064814a44fa7c2459eaf31916afe9b1, type: 3}
+  m_Name: Respiratory System
+  m_EditorClassIdentifier: 
+  ds:
+  - objectName: LARYNX
+    objectDescription: The larynx is a small structure of cartilage that connects
+      the throat to the windpipe. It consists of nine cartilage structures, thyroid
+      cartilage, epiglottis, cricoid cartilage, arytenoid cartilages, corniculate
+      cartilages and cuneiform cartilages. It is found in the front of the neck and
+      houses the vocal cords, producing speech sounds and contributing to respiration
+  - objectName: TRACHEA
+    objectDescription: The trachea is a tube-like structure in the neck and upper
+      chest. The average length of the trachea is about 11.8cm. It stretches from
+      the larynx, or voice box, to the bronchi and transports air to and from the
+      lungs when a person breathes
+  - objectName: BRONCHI
+    objectDescription: The bronchi are the two large tubes that carry air from your
+      windpipe to your lungs. You have a left and right main bronchus in each lung.
+      After the main bronchi, these tubes branch out into segments that look like
+      tree branches. As you breathe and your lungs expand, your bronchi distribute
+      the air within your lung. The bronchi also help moisturize the air you breathe
+      and screen out foreign particles
+  - objectName: BRONCHIOLES
+    objectDescription: The bronchioles are tubes in the lungs which branch off from
+      the larger bronchi that enter each lung, from the large and singular trachea
+      which connects to the mouth. As such, bronchioles are one of the smallest airways
+      in the respiratory tract and lead directly to the alveolar ducts for exchanging
+      gases in the blood
+  - objectName: ALVEOLI
+    objectDescription: These are tiny air sacs that function as basic respiratory
+      units. It is a hollow cup-shaped cavity in the lung parenchyma, where gas exchange
+      takes place. Lung alveoli are found in the acini at the beginning of the respiratory
+      zone
+  - objectName: LUNGS
+    objectDescription: 'The lungs are pyramid shaped, paired organs that are connected
+      to the trachea by the right and left bronchi, on the inferior surface the lungs
+      are bordered by the diaphragm. The lungs are enclosed by the pleurae, that
+      consists of two continuous membranes which are attached to the mediastinum.
+      Each lung is composed of lobes, fissures separate these lobes form each other.
+      The right lung has three lobes: the superior, middle and inferior lobes. The
+      left lung consists of two lobes: the superior and inferior lobes. The major
+      function of the lung is to perform gas exchange'
