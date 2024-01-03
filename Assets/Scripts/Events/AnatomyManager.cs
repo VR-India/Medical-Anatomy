@@ -1,18 +1,34 @@
 using UnityEngine;
 using UnityEngine.Events;
-namespace iNucom
+
+namespace iNucom.iEvents
 {
-    namespace iEvents
+    /// <summary>
+    /// Manages anatomy-related events in the application.
+    /// </summary>
+    public class AnatomyManager : MonoBehaviour
     {
-        public class AnatomyManager : MonoBehaviour
+        /// <summary>
+        /// Singleton instance of the AnatomyManager.
+        /// </summary>
+        public static AnatomyManager Instance { get; private set; }
+        private void Awake()
         {
-            public static AnatomyManager Instance;
-            private void Awake()
+            // Ensure only one instance of AnatomyManager exists
+            if (Instance == null)
             {
-                if (Instance == null) Instance = this;
+                Instance = this;
             }
-            public UnityAction OnObjectGrab;
-            public UnityAction OnLaserTagged;
         }
+
+        /// <summary>
+        /// Event triggered when an object is grabbed.
+        /// </summary>
+        public UnityAction OnObjectGrab;
+
+        /// <summary>
+        /// Event triggered when the laser tags an object.
+        /// </summary>
+        public UnityAction OnLaserTagged;
     }
 }

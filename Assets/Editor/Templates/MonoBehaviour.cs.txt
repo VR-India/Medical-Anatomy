@@ -1,0 +1,15 @@
+#region
+/// copyright (c) iNucom. All rights reserved.
+#endregion
+
+using UnityEngine;
+
+#ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    void Start()
+    {
+        #NOTRIM#
+    }
+}
+#ROOTNAMESPACEEND#

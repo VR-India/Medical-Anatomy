@@ -1,0 +1,12 @@
+#region
+/// copyright (c) iNucom. All rights reserved.
+#endregion
+
+using UnityEngine;
+
+#ROOTNAMESPACEBEGIN#
+public enum #SCRIPTNAME#
+{
+  #NOTRIM#
+}
+#ROOTNAMESPACEEND#

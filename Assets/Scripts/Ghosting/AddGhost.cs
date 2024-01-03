@@ -1,27 +1,43 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Adds ghost effects to child MeshRenderers by configuring them with a ghost material, MeshCollider, and GhostSnap component.
+/// </summary>
 public class AddGhost : MonoBehaviour
 {
+    /// <summary>
+    /// Array of child MeshRenderers to be configured with ghost effects.
+    /// </summary>
     public MeshRenderer[] _mesh;
+
+    /// <summary>
+    /// The material used for the ghost effect.
+    /// </summary>
     public Material ghostMaterial;
+
+    /// <summary>
+    /// Configures child MeshRenderers with ghost effects during Awake.
+    /// </summary>
     private void Awake()
     {
         _mesh = GetComponentsInChildren<MeshRenderer>();
+
         foreach (MeshRenderer mesh in _mesh)
         {
-            mesh.transform.SetParent(transform, true);
+            Transform meshTransform = mesh.transform;
+
+            // Set the parent, material, and enable/disable the MeshRenderer
+            meshTransform.SetParent(transform, true);
             mesh.material = ghostMaterial;
             mesh.enabled = false;
-           // mesh.AddComponent<Rigidbody>();
-          //  mesh.GetComponent<Rigidbody>().isKinematic = true;
-           // mesh.GetComponent<Rigidbody>().useGravity = false;
 
-            mesh.AddComponent<MeshCollider>();
-            mesh.GetComponent<MeshCollider>().convex = true;
-            mesh.GetComponent<MeshCollider>().isTrigger = true;
+            // Add and configure MeshCollider
+            MeshCollider meshCollider = meshTransform.gameObject.AddComponent<MeshCollider>();
+            meshCollider.convex = true;
+            meshCollider.isTrigger = true;
 
-            mesh.AddComponent<GhostSnap>();
+            // Add GhostSnap component
+            meshTransform.gameObject.AddComponent<GhostSnap>();
         }
     }
 }

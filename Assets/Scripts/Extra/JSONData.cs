@@ -37,7 +37,7 @@ public class JSONData : MonoBehaviour
     // public string json;
     private void Start()
     {
-        foreach(var item in data.ds) 
+        foreach(var item in data.anatomyInfos) 
         {
             part.list.Add(new Parts() { name = item.objectName, description = item.objectDescription }) ;
         }

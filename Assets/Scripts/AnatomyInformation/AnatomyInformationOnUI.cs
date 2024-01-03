@@ -5,60 +5,77 @@ using iNucom.iEvents;
 
 namespace iNucom
 {
-    // this script fetches data from json and scriptable object and assigns that to UI elements
+    /// <summary>
+    /// Fetches data from JSON or a ScriptableObject and assigns it to UI elements based on the currently grabbed object.
+    /// </summary>
     public class AnatomyInformationOnUI : MonoBehaviour
     {
-        public string partName;
-        // uncomment if using SO
-        [SerializeField] private AnatomyInformationSO cadavarSO ;
+        /// <summary>
+        /// ScriptableObject containing anatomy information.
+        /// </summary>
+        [SerializeField] private AnatomyInformationSO cadaverSO;
 
-        // uncomment if using JSON
-       // private JSONFetch jsonFetch;
+        /// <summary>
+        /// JSON data fetcher.
+        /// </summary>
+        private JSONFetch jsonFetch;
 
+        /// <summary>
+        /// Text component displaying the object name.
+        /// </summary>
         public TMP_Text objName;
+
+        /// <summary>
+        /// Text component displaying the object description.
+        /// </summary>
         public TMP_Text objDescription;
 
         private void OnEnable()
         {
-            AnatomyManager.Instance.OnObjectGrab += SetNameToPanel;
-            AnatomyManager.Instance.OnObjectGrab += SetDescriptionToPanel;
+            AnatomyManager.Instance.OnObjectGrab += SetUIElements;
         }
 
         private void Start()
         {
-            // uncomment if using JSON
-            //jsonFetch = GetComponent<JSONFetch>();
+            // Uncomment if using JSON
+            jsonFetch = GetComponent<JSONFetch>();
         }
-        public void SetNameToPanel()
+
+        /// <summary>
+        /// Sets the name and description to the UI panel based on the currently grabbed object.
+        /// </summary>
+        private void SetUIElements()
         {
-            if (objName == null)
+            string grabbedName = Ghosting.GrabbedName();
+
+            // Set the name to the UI panel
+            if (objName != null)
             {
-                objName.text = Ghosting.GrabbedName();
-                partName = Ghosting.GrabbedName();
+                objName.text = grabbedName;
             }
-        }
 
-        public void SetDescriptionToPanel()
-        {
-            // uncomment if using SO
-             objDescription.text = cadavarSO.GetDetails(Ghosting.GrabbedName());
+            // Set the description to the UI panel based on the data source (SO or JSON)
+            if (objDescription != null)
+            {
+                // Uncomment if using SO
+                objDescription.text = cadaverSO.GetDetails(grabbedName);
 
-            // uncomment if using JSON
-           // objDescription.text = jsonFetch.GetDescription(Ghosting.GrabbedName());
+                // Uncomment if using JSON
+                 objDescription.text = jsonFetch.GetDescription(grabbedName);
+            }
         }
 
         private void OnDisable()
         {
-            AnatomyManager.Instance.OnObjectGrab -= SetNameToPanel;
-            AnatomyManager.Instance.OnObjectGrab -= SetDescriptionToPanel;
+            AnatomyManager.Instance.OnObjectGrab -= SetUIElements;
         }
-        
+
         private void Update()
         {
-          //  Debug.Log(Ghosting.GrabbedName)
-            if (Ghosting.GrabbedName()!=null)
+            // Debug.Log(Ghosting.GrabbedName())
+            if (Ghosting.GrabbedName() != null)
             {
-                AnatomyManager.Instance.OnObjectGrab();               
+                AnatomyManager.Instance.OnObjectGrab();
             }
         }
     }

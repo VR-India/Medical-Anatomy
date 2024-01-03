@@ -1,30 +1,46 @@
 using UnityEngine;
-using Unity.VisualScripting;
 using BNG;
 
+/// <summary>
+/// Adds grabbable properties to child MeshRenderers using the BNG (VR Interaction) framework.
+/// </summary>
 public class AddGrabber : MonoBehaviour
 {
-    public MeshRenderer[] _collider;
+    /// <summary>
+    /// Array of child MeshRenderers to be configured as grabbable objects.
+    /// </summary>
+    public MeshRenderer[] _colliders;
+
+    /// <summary>
+    /// Configures child MeshRenderers as grabbable objects during Awake.
+    /// </summary>
     private void Awake()
     {
-        _collider = GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer mesh in _collider)
+        _colliders = GetComponentsInChildren<MeshRenderer>();
+
+        foreach (MeshRenderer mesh in _colliders)
         {
-            mesh.transform.SetParent(transform, true);
-            mesh.transform.localScale=new Vector3(1,1,1);
-            mesh.AddComponent<Rigidbody>();
-            mesh.GetComponent<Rigidbody>().isKinematic = true;
-            mesh.GetComponent<Rigidbody>().useGravity = false;            
+            Transform meshTransform = mesh.transform;
 
-            mesh.AddComponent<MeshCollider>();
-            mesh.GetComponent<MeshCollider>().convex = true;
-            mesh.GetComponent<MeshCollider>().isTrigger = true;
+            // Set the parent and scale of the MeshRenderer
+            meshTransform.SetParent(transform, true);
+            meshTransform.localScale = Vector3.one;
 
-            // these 4 lines are  BNG Dependent Change it when using other api
-            mesh.AddComponent<Grabbable>();
-            mesh.GetComponent<Grabbable>().HideHandGraphics = true;
-            mesh.GetComponent<Grabbable>().ParentHandModel = false;
-            mesh.GetComponent<Grabbable>().ParentToHands = true;
+            // Add and configure Rigidbody
+            Rigidbody rigidbody = meshTransform.gameObject.AddComponent<Rigidbody>();
+            rigidbody.isKinematic = true;
+            rigidbody.useGravity = false;
+
+            // Add and configure MeshCollider
+            MeshCollider meshCollider = meshTransform.gameObject.AddComponent<MeshCollider>();
+            meshCollider.convex = true;
+            meshCollider.isTrigger = true;
+
+            // Add and configure Grabbable component (BNG framework)
+            Grabbable grabbable = meshTransform.gameObject.AddComponent<Grabbable>();
+            grabbable.HideHandGraphics = true;
+            grabbable.ParentHandModel = false;
+            grabbable.ParentToHands = true;
         }
     }
 }

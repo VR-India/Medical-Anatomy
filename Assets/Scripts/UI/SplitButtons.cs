@@ -1,34 +1,63 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the creation and visibility of buttons associated with a Tween.
+/// </summary>
 public class SplitButtons : MonoBehaviour
 {
+    /// <summary>
+    /// Prefab for the buttons.
+    /// </summary>
     public GameObject buttonPrefab;
+
+    /// <summary>
+    /// Tween component reference.
+    /// </summary>
     public Tween tween;
-    public List<GameObject> _btns;
+
+    /// <summary>
+    /// List of buttons created.
+    /// </summary>
+    private List<GameObject> _buttons;
+
     private void Start()
     {
-        foreach (AddGrabber t in tween.addgrabber)
+        _buttons = new List<GameObject>();
+
+        // Instantiate buttons for each AddGrabber in the tween.
+        foreach (AddGrabber grabber in tween.AddGrabbers)
         {
-            GameObject temp = Instantiate(buttonPrefab);            
-            temp.transform.parent = t.transform;
-            temp.transform.localPosition = new Vector3 (0, -0.5f, 0.8f);
-            temp.GetComponentInChildren<Button>().onClick.AddListener(temp.GetComponentInParent<Tween>().CallFold);
-            temp.SetActive(false);
-            _btns.Add(temp);
+            GameObject button = InstantiateButton();
+            button.transform.parent = grabber.transform;
+            button.transform.localPosition = new Vector3(0, -0.5f, 0.8f);
+
+            // Add button click listener to call the Fold method in the associated Tween.
+            button.GetComponentInChildren<Button>().onClick.AddListener(button.GetComponentInParent<Tween>().CallFold);
+
+            button.SetActive(false);
+            _buttons.Add(button);
         }
     }
 
-    bool hide;
-    public void HideButtons()
+    /// <summary>
+    /// Instantiates a new button based on the buttonPrefab.
+    /// </summary>
+    /// <returns>The instantiated button GameObject.</returns>
+    private GameObject InstantiateButton()
     {
-        hide = !hide;
-        foreach (GameObject item in _btns)
+        return Instantiate(buttonPrefab);
+    }
+
+    /// <summary>
+    /// Toggles the visibility of the buttons.
+    /// </summary>
+    public void ToggleButtonsVisibility()
+    {
+        foreach (GameObject button in _buttons)
         {
-            item.SetActive(hide);
+            button.SetActive(!button.activeSelf);
         }
-        
     }
 }

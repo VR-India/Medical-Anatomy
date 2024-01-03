@@ -1,65 +1,93 @@
 using UnityEngine;
 using DG.Tweening;
+
+/// <summary>
+/// Handles various tweening animations using DOTween.
+/// </summary>
 public class Tweens : MonoBehaviour
 {
-    #region Variables
-    [SerializeField] float Rmin, Rmax;
-    public static Tweens instance;
-    #endregion
-    private void Awake() { instance = this; }
-    #region Fold  
+    [SerializeField] private float randomMin, randomMax;
+    public static Tweens Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     /// <summary>
-    /// folds and unfolds the gameObject into small pieces and back together
-    /// using data provided by the call
+    /// Folds or unfolds the specified GameObjects, creating a dynamic animation.
     /// </summary>
+    /// <param name="childTransforms">Array of child GameObjects to be folded or unfolded.</param>
+    /// <param name="initTransforms">Initial positions of child GameObjects.</param>
+    /// <param name="initRotation">Initial rotations of child GameObjects.</param>
+    /// <param name="fold">If true, folds the GameObject; if false, unfolds it.</param>
     public void Fold(GameObject[] childTransforms, Vector3[] initTransforms, Quaternion[] initRotation, bool fold)
     {
         for (int i = 0; i < childTransforms.Length; i++)
         {
             if (!fold)
-                childTransforms[i].GetComponent<Transform>().DOLocalMove(new Vector3(Random.Range(Rmin, Rmax), Random.Range(Rmin, Rmax), Random.Range(Rmin, Rmax)), 0.6f);
-            if (fold)
-            {
-                childTransforms[i].GetComponent<Transform>().DOLocalMove(initTransforms[i], 0.6f);
-                childTransforms[i].GetComponent<Transform>().DORotate(new Vector3(initRotation[i].eulerAngles.x, initRotation[i].eulerAngles.y, initRotation[i].eulerAngles.z), 0.6f);
-            }
+                childTransforms[i].transform.DOLocalMove(GetRandomPosition(), 0.6f);
+            else
+                ResetTransform(childTransforms[i], initTransforms[i], initRotation[i], 0.6f);
         }
     }
-    #endregion
-    #region Reset
+
     /// <summary>
-    /// resets the already blasted gameObjects to their original form(does not effect sidewaysFold)
-    /// using data provided by the call
+    /// Resets the specified GameObjects to their original form.
     /// </summary>
-    public void ResetAnatomy(GameObject[] childTransforms, Vector3[] initTransforms, Quaternion[] initRotation, bool fold)
+    /// <param name="childTransforms">Array of child GameObjects to be reset.</param>
+    /// <param name="initTransforms">Initial positions of child GameObjects.</param>
+    /// <param name="initRotation">Initial rotations of child GameObjects.</param>
+    /// <param name="duration">Duration of the reset animation.</param>
+    public void ResetAnatomy(GameObject[] childTransforms, Vector3[] initTransforms, Quaternion[] initRotation, float duration)
     {
         for (int i = 0; i < childTransforms.Length; i++)
         {
-            childTransforms[i].GetComponent<Transform>().DOLocalMove(initTransforms[i], 2f);
-            childTransforms[i].GetComponent<Transform>().DORotate(new Vector3(initRotation[i].eulerAngles.x, initRotation[i].eulerAngles.y, initRotation[i].eulerAngles.z), 1f);
+            ResetTransform(childTransforms[i], initTransforms[i], initRotation[i], duration);
         }
     }
-    #endregion
-    #region SideWays
+
     /// <summary>
-    /// Moves the gameObjects and related buttons sideways
-    /// using data provided by the call
+    /// Resets the position and rotation of a GameObject to specified values over a specified duration.
     /// </summary>
-    public void sidewaysFold(GameObject[] childTransforms, Vector3[] subInitTransforms, Quaternion[] subInitRotation, bool fold)
+    /// <param name="target">The GameObject to reset.</param>
+    /// <param name="position">The target local position for the reset.</param>
+    /// <param name="rotation">The target rotation for the reset.</param>
+    /// <param name="duration">The duration of the reset animation.</param>
+    public void ResetTransform(GameObject target, Vector3 position, Quaternion rotation, float duration)
     {
-       // sideFold = !sideFold;
+        target.transform.DOLocalMove(position, duration);
+        target.transform.DORotate(rotation.eulerAngles, duration * 0.5f);
+    }
+
+
+    /// <summary>
+    /// Moves the specified GameObjects and related buttons sideways.
+    /// </summary>
+    /// <param name="childTransforms">Array of child GameObjects to be moved sideways.</param>
+    /// <param name="subInitTransforms">Initial positions of child GameObjects for sideways movement.</param>
+    /// <param name="subInitRotation">Initial rotations of child GameObjects for sideways movement.</param>
+    /// <param name="fold">If true, moves GameObjects sideways; if false, moves them back to initial positions.</param>
+    public void SidewaysFold(GameObject[] childTransforms, Vector3[] subInitTransforms, Quaternion[] subInitRotation, bool fold)
+    {
         for (int i = 0; i < childTransforms.Length; i++)
         {
             if (!fold)
-            {
-                childTransforms[i].transform.DOLocalMove(new Vector3(i * 2, 0, childTransforms[i].transform.localPosition.z), 0.6f);
-            }
-            if (fold)
-            {
-                childTransforms[i].transform.DOLocalMove(subInitTransforms[i], 0.6f);
-                childTransforms[i].transform.DORotate(new Vector3(subInitRotation[i].eulerAngles.x, subInitRotation[i].eulerAngles.y, subInitRotation[i].eulerAngles.z), 0.6f);
-            }
+                childTransforms[i].transform.DOLocalMove(GetSidewaysPosition(i, childTransforms), 0.6f);
+            else
+                ResetTransform(childTransforms[i], subInitTransforms[i], subInitRotation[i], 0.6f);
         }
     }
-    #endregion
+
+    // Helper method to get a random position within the specified range
+    private Vector3 GetRandomPosition()
+    {
+        return new Vector3(Random.Range(randomMin, randomMax), Random.Range(randomMin, randomMax), Random.Range(randomMin, randomMax));
+    }
+
+    // Helper method to get a sideways position based on index
+    private Vector3 GetSidewaysPosition(int index, GameObject[] childTransforms)
+    {
+        return new Vector3(index * 2, 0, childTransforms[index].transform.localPosition.z);
+    }
 }

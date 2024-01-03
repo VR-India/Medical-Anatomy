@@ -4,38 +4,60 @@ using iNucom.Ghost;
 namespace iNucom
 {
     /// <summary>
-    /// Enabling the Ghost Shader effects on the item we hold by getting the name from ghosting script
+    /// Enables Ghost Shader effects on the held item by obtaining the name from the Ghosting script.
     /// </summary>
     public class GhostEffect : MonoBehaviour
     {
-        MeshCollider[] colliders;
-        MeshRenderer[] renderers;
-        public string _name;
+        private MeshCollider[] colliders;
+        private MeshRenderer[] renderers;
+        private string itemName;
+
+        /// <summary>
+        /// Initializes the GhostEffect component by obtaining references to child MeshColliders and MeshRenderers.
+        /// </summary>
         private void Awake()
         {
             colliders = GetComponentsInChildren<MeshCollider>();
-            renderers = GetComponentsInChildren<MeshRenderer>();    
+            renderers = GetComponentsInChildren<MeshRenderer>();
         }
 
+        /// <summary>
+        /// Updates the GhostEffect component based on the currently held item.
+        /// </summary>
         void Update()
         {
-            if (this.transform.Find(Ghosting.GrabbedName()) != null)
+            string grabbedName = Ghosting.GrabbedName();
+            Transform grabbedItem = this.transform.Find(grabbedName);
+
+            if (grabbedItem != null)
             {
-                _name = Ghosting.GrabbedName();
-                foreach (MeshRenderer mess in renderers)
+                itemName = grabbedName;
+
+                foreach (MeshRenderer meshRenderer in renderers)
                 {
-                    mess.enabled = false;
+                    meshRenderer.enabled = false;
                 }
-                this.transform.Find(Ghosting.GrabbedName()).GetComponent<MeshRenderer>().enabled = true;
+
+                if (!string.IsNullOrEmpty(itemName))
+                {
+                    grabbedItem.GetComponent<MeshRenderer>().enabled = true;
+                }
             }
-            if (this.transform.Find(Ghosting.GrabbedName()) == null)
+            else
             {
                 foreach (MeshCollider collider in colliders)
                 {
                     collider.enabled = false;
                 }
-                if (_name != "")
-                    this.transform.Find(_name).GetComponent<MeshCollider>().enabled = true;
+
+                if (!string.IsNullOrEmpty(itemName))
+                {
+                    Transform namedItem = this.transform.Find(itemName);
+                    if (namedItem != null)
+                    {
+                        namedItem.GetComponent<MeshCollider>().enabled = true;
+                    }
+                }
             }
         }
     }

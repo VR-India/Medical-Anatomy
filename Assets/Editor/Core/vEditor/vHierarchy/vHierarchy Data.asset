@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9752b0c8e144801967e6897679604b, type: 3}
+  m_Name: vHierarchy Data
+  m_EditorClassIdentifier: 
+  sceneDatasByGuid:
+    keys:
+    - 811bd96ea0943a542a13151712f978fc
+    - eac3b41927f98a34ea69894588b5ea8f
+    values:
+    - goDatasByGlobalId:
+        keys:
+        - GlobalObjectId_V1-2-811bd96ea0943a542a13151712f978fc-1661580820-0
+        - GlobalObjectId_V1-2-811bd96ea0943a542a13151712f978fc-123253114-0
+        - GlobalObjectId_V1-2-811bd96ea0943a542a13151712f978fc-1149023372-0
+        - GlobalObjectId_V1-2-811bd96ea0943a542a13151712f978fc-1479897135-0
+        - GlobalObjectId_V1-2-811bd96ea0943a542a13151712f978fc-1820493541-0
+        values:
+        - iColor: 7
+          icon: Settings Icon
+        - iColor: 4
+          icon: Canvas Icon
+        - iColor: 9
+          icon: AudioReverbZone Icon
+        - iColor: 6
+          icon: Light Icon
+        - iColor: 5
+          icon: LightmapParameters Icon
+      goDatasByInstanceId:
+        keys: a470000082690000206e0000ca6f00005a710000
+        values:
+        - iColor: 7
+          icon: Settings Icon
+        - iColor: 4
+          icon: Canvas Icon
+        - iColor: 9
+          icon: AudioReverbZone Icon
+        - iColor: 6
+          icon: Light Icon
+        - iColor: 5
+          icon: LightmapParameters Icon
+    - goDatasByGlobalId:
+        keys: []
+        values: []
+      goDatasByInstanceId:
+        keys: 
+        values: []
