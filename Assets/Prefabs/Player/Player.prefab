@@ -12766,7 +12766,6 @@ GameObject:
   - component: {fileID: 1335507069889400258}
   - component: {fileID: 1335507069889400257}
   - component: {fileID: 1335507069889400295}
-  - component: {fileID: 8232510409136502344}
   m_Layer: 2
   m_Name: Grabber
   m_TagString: Untagged
@@ -12980,18 +12979,6 @@ MonoBehaviour:
   RemoteCollisionLayers:
     serializedVersion: 2
     m_Bits: 1
---- !u!114 &8232510409136502344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335507069889400280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d37a63849dc222a44bc0a9d9e5ec4fe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1343513057105674574
 GameObject:
   m_ObjectHideFlags: 0
@@ -59815,7 +59802,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6269961555136206668}
-  m_LocalRotation: {x: -0, y: 0.59741646, z: -0, w: 0.8019312}
+  m_LocalRotation: {x: 0, y: 0.59741527, z: 0, w: 0.8019321}
   m_LocalPosition: {x: -0.03, y: 1, z: 0.087}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

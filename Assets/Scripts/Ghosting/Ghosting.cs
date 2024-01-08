@@ -6,40 +6,41 @@ namespace iNucom
     namespace Ghost
     {
         /// <summary>
-        /// Provides static methods to retrieve information about the currently grabbed object using the Grabber component.
+        /// Provides functionality to retrieve information about the currently grabbed object using the Grabber script.
+        /// Grabber is BNG dependent; replace when using another API.
         /// </summary>
         public class Ghosting : MonoBehaviour
         {
-            /// <summary>
-            /// The Grabber component used to interact with grabbable objects.
-            /// </summary>
-            private static Grabber grabber;
+            private static Grabber Grabber;
+
+            private void Awake() { Grabber = GetComponent<Grabber>(); }
 
             /// <summary>
-            /// Initializes the Grabber component during the Awake phase.
+            /// Gets the name of the currently held object.
             /// </summary>
-            private void Awake()
+            /// <returns>The name of the held object or an empty string if no object is held.</returns>
+            /// <remarks>
+            /// This method returns the name of the currently held object using the Grabber script.
+            /// If no object is being held, it returns an empty string.
+            /// </remarks>
+            public static string GetGrabbedName()
             {
-                grabber = GetComponent<Grabber>();
+                return Grabber.HoldingItem ? Grabber.HeldGrabbable.name : " ";
             }
 
             /// <summary>
-            /// Retrieves the name of the currently grabbed object, or an empty string if no object is being held.
+            /// Gets the GameObject of the currently held object.
             /// </summary>
-            /// <returns>The name of the currently grabbed object.</returns>
-            public static string GrabbedName()
+            /// <returns>The GameObject of the held object or null if no object is held.</returns>
+            /// <remarks>
+            /// This method returns the GameObject of the currently held object using the Grabber script.
+            /// If no object is being held, it returns null.
+            /// </remarks>
+            public static GameObject GetGrabbedObject()
             {
-                return grabber.HoldingItem ? grabber.HeldGrabbable.name : string.Empty;
+                return Grabber.HoldingItem ? Grabber.HeldGrabbable.gameObject : null;
             }
 
-            /// <summary>
-            /// Retrieves the GameObject of the currently grabbed object, or null if no object is being held.
-            /// </summary>
-            /// <returns>The GameObject of the currently grabbed object.</returns>
-            public static GameObject GrabbedObject()
-            {
-                return grabber.HoldingItem ? grabber.HeldGrabbable.gameObject : null;
-            }
         }
     }
 }

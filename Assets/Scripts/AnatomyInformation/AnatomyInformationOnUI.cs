@@ -46,23 +46,13 @@ namespace iNucom
         /// </summary>
         private void SetUIElements()
         {
-            string grabbedName = Ghosting.GrabbedName();
-
+            string grabbedName = Ghosting.GetGrabbedName();
             // Set the name to the UI panel
-            if (objName != null)
-            {
-                objName.text = grabbedName;
-            }
+            objName?.SetText(grabbedName); // Assuming objName is of Text type
 
             // Set the description to the UI panel based on the data source (SO or JSON)
-            if (objDescription != null)
-            {
-                // Uncomment if using SO
-                objDescription.text = cadaverSO.GetDetails(grabbedName);
+            objDescription?.SetText(cadaverSO.GetDetails(grabbedName) ?? jsonFetch.GetDescription(grabbedName));
 
-                // Uncomment if using JSON
-                 objDescription.text = jsonFetch.GetDescription(grabbedName);
-            }
         }
 
         private void OnDisable()
@@ -73,7 +63,7 @@ namespace iNucom
         private void Update()
         {
             // Debug.Log(Ghosting.GrabbedName())
-            if (Ghosting.GrabbedName() != null)
+            if (Ghosting.GetGrabbedName() != " ")
             {
                 AnatomyManager.Instance.OnObjectGrab();
             }

@@ -26,19 +26,19 @@ public class SplitButtons : MonoBehaviour
     {
         _buttons = new List<GameObject>();
 
-        // Instantiate buttons for each AddGrabber in the tween.
-        foreach (AddGrabber grabber in tween.AddGrabbers)
-        {
-            GameObject button = InstantiateButton();
-            button.transform.parent = grabber.transform;
-            button.transform.localPosition = new Vector3(0, -0.5f, 0.8f);
+        //// Instantiate buttons for each AddGrabber in the tween.
+        //foreach (AddGrabber grabber in tween.AddGrabbers)
+        //{
+        //    GameObject button = InstantiateButton();
+        //    button.transform.parent = grabber.transform;
+        //    button.transform.localPosition = new Vector3(0, -0.5f, 0.8f);
 
-            // Add button click listener to call the Fold method in the associated Tween.
-            button.GetComponentInChildren<Button>().onClick.AddListener(button.GetComponentInParent<Tween>().CallFold);
+        //    // Add button click listener to call the Fold method in the associated Tween.
+        //    button.GetComponentInChildren<Button>().onClick.AddListener(button.GetComponentInParent<Tween>().CallFold);
 
-            button.SetActive(false);
-            _buttons.Add(button);
-        }
+        //    button.SetActive(false);
+        //    _buttons.Add(button);
+        //}
     }
 
     /// <summary>

@@ -6,11 +6,6 @@ using UnityEngine;
 public class AddGhost : MonoBehaviour
 {
     /// <summary>
-    /// Array of child MeshRenderers to be configured with ghost effects.
-    /// </summary>
-    public MeshRenderer[] _mesh;
-
-    /// <summary>
     /// The material used for the ghost effect.
     /// </summary>
     public Material ghostMaterial;
@@ -20,24 +15,26 @@ public class AddGhost : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        _mesh = GetComponentsInChildren<MeshRenderer>();
-
-        foreach (MeshRenderer mesh in _mesh)
+        foreach (Transform childTransform in transform)
         {
-            Transform meshTransform = mesh.transform;
+            MeshRenderer mesh = childTransform.GetComponent<MeshRenderer>();
 
-            // Set the parent, material, and enable/disable the MeshRenderer
-            meshTransform.SetParent(transform, true);
-            mesh.material = ghostMaterial;
-            mesh.enabled = false;
+            if (mesh != null)
+            {
+                // Set the parent, material, and enable/disable the MeshRenderer
+                childTransform.SetParent(transform, true);
+                mesh.material = ghostMaterial;
+                mesh.enabled = false;
 
-            // Add and configure MeshCollider
-            MeshCollider meshCollider = meshTransform.gameObject.AddComponent<MeshCollider>();
-            meshCollider.convex = true;
-            meshCollider.isTrigger = true;
+                // Add and configure MeshCollider
+                MeshCollider meshCollider = childTransform.gameObject.AddComponent<MeshCollider>();
+                meshCollider.convex = true;
+                meshCollider.isTrigger = true;
+                meshCollider.enabled = false;
 
-            // Add GhostSnap component
-            meshTransform.gameObject.AddComponent<GhostSnap>();
+                // Add GhostSnap component
+                childTransform.gameObject.AddComponent<GhostSnap>();
+            }
         }
     }
 }

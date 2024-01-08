@@ -17,30 +17,50 @@ public class AddGrabber : MonoBehaviour
     private void Awake()
     {
         _colliders = GetComponentsInChildren<MeshRenderer>();
-
         foreach (MeshRenderer mesh in _colliders)
         {
-            Transform meshTransform = mesh.transform;
+            ConfigureMesh(mesh);
+        }
+    }
+    private void ConfigureMesh(MeshRenderer mesh)
+    {
+        Transform meshTransform = mesh.transform;
 
-            // Set the parent and scale of the MeshRenderer
-            meshTransform.SetParent(transform, true);
-            meshTransform.localScale = Vector3.one;
+        // Set the parent and scale of the MeshRenderer
+        meshTransform.SetParent(transform, true);
+        meshTransform.localScale = Vector3.one;
 
-            // Add and configure Rigidbody
-            Rigidbody rigidbody = meshTransform.gameObject.AddComponent<Rigidbody>();
+        // Add and configure Rigidbody
+        Rigidbody rigidbody = AddRigidbody(meshTransform);
+
+        // Add and configure MeshCollider
+        AddMeshCollider(meshTransform);
+
+        // Add and configure Grabbable component (BNG framework)
+        AddGrabbable(meshTransform);
+    }
+    private Rigidbody AddRigidbody(Transform parent)
+    {
+        Rigidbody rigidbody = parent.gameObject.AddComponent<Rigidbody>();
+        if (rigidbody != null)
+        {
             rigidbody.isKinematic = true;
             rigidbody.useGravity = false;
-
-            // Add and configure MeshCollider
-            MeshCollider meshCollider = meshTransform.gameObject.AddComponent<MeshCollider>();
-            meshCollider.convex = true;
-            meshCollider.isTrigger = true;
-
-            // Add and configure Grabbable component (BNG framework)
-            Grabbable grabbable = meshTransform.gameObject.AddComponent<Grabbable>();
-            grabbable.HideHandGraphics = true;
-            grabbable.ParentHandModel = false;
-            grabbable.ParentToHands = true;
         }
+            return rigidbody;
+    }
+    private void AddMeshCollider(Transform parent)
+    {
+        MeshCollider meshCollider = parent.gameObject.AddComponent<MeshCollider>();
+        meshCollider.convex = true;
+        meshCollider.isTrigger = true;
+    }
+    private void AddGrabbable(Transform parent)
+    {
+        Grabbable grabbable = parent.gameObject.AddComponent<Grabbable>();
+        grabbable.HideHandGraphics = true;
+        grabbable.ParentHandModel = false;
+        grabbable.ParentToHands = true;
+        grabbable.SnapHandModel = false;
     }
 }

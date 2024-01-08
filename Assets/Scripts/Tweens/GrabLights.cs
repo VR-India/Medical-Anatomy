@@ -22,14 +22,14 @@ public class GrabLights : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Ghosting.GrabbedObject() != null)
-        {
-            DisableLightsOnGrabbedObject();
-        }
-        else
-        {
-            EnableAllLights();
-        }
+        //if (Ghosting.GrabbedObject() != null)
+        //{
+        //    DisableLightsOnGrabbedObject();
+        //}
+        //else
+        //{
+        //    EnableAllLights();
+        //}
     }
 
     /// <summary>
@@ -37,21 +37,21 @@ public class GrabLights : MonoBehaviour
     /// </summary>
     private void DisableLightsOnGrabbedObject()
     {
-        GameObject grabbedObject = Ghosting.GrabbedObject();
+      //  GameObject grabbedObject = Ghosting.GrabbedObject();
 
         // Check if a valid object is grabbed
-        if (grabbedObject != null)
-        {
-            // Attempt to get the light component in the grabbed object's children
-            Light grabbedObjectLight = grabbedObject.GetComponentInChildren<Light>();
+        //if (grabbedObject != null)
+        //{
+        //    // Attempt to get the light component in the grabbed object's children
+        //    Light grabbedObjectLight = grabbedObject.GetComponentInChildren<Light>();
 
-            // Check if a light component is found
-            if (grabbedObjectLight != null)
-            {
-                // Disable the light
-                grabbedObjectLight.enabled = false;
-            }
-        }
+        //    // Check if a light component is found
+        //    if (grabbedObjectLight != null)
+        //    {
+        //        // Disable the light
+        //        grabbedObjectLight.enabled = false;
+        //    }
+        //}
     }
 
     /// <summary>

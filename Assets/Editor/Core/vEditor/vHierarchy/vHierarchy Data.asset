@@ -16,6 +16,7 @@ MonoBehaviour:
     keys:
     - 811bd96ea0943a542a13151712f978fc
     - eac3b41927f98a34ea69894588b5ea8f
+    - 
     values:
     - goDatasByGlobalId:
         keys:
@@ -24,6 +25,7 @@ MonoBehaviour:
         - GlobalObjectId_V1-2-811bd96ea0943a542a13151712f978fc-1149023372-0
         - GlobalObjectId_V1-2-811bd96ea0943a542a13151712f978fc-1479897135-0
         - GlobalObjectId_V1-2-811bd96ea0943a542a13151712f978fc-1820493541-0
+        - GlobalObjectId_V1-2-811bd96ea0943a542a13151712f978fc-6269961555136206668-8232510408299410934
         values:
         - iColor: 7
           icon: Settings Icon
@@ -35,8 +37,10 @@ MonoBehaviour:
           icon: Light Icon
         - iColor: 5
           icon: LightmapParameters Icon
+        - iColor: 2
+          icon: 
       goDatasByInstanceId:
-        keys: a470000082690000206e0000ca6f00005a710000
+        keys: b2700000946900002e6e0000d86f000068710000a8f6ffff
         values:
         - iColor: 7
           icon: Settings Icon
@@ -48,6 +52,14 @@ MonoBehaviour:
           icon: Light Icon
         - iColor: 5
           icon: LightmapParameters Icon
+        - iColor: 2
+          icon: 
+    - goDatasByGlobalId:
+        keys: []
+        values: []
+      goDatasByInstanceId:
+        keys: 
+        values: []
     - goDatasByGlobalId:
         keys: []
         values: []

@@ -26,39 +26,63 @@ namespace iNucom
         /// </summary>
         void Update()
         {
-            string grabbedName = Ghosting.GrabbedName();
+            string grabbedName = Ghosting.GetGrabbedName();
             Transform grabbedItem = this.transform.Find(grabbedName);
+
+            DisableAllRenderersAndColliders();
 
             if (grabbedItem != null)
             {
                 itemName = grabbedName;
 
-                foreach (MeshRenderer meshRenderer in renderers)
-                {
-                    meshRenderer.enabled = false;
-                }
-
-                if (!string.IsNullOrEmpty(itemName))
-                {
-                    grabbedItem.GetComponent<MeshRenderer>().enabled = true;
-                }
+                EnableRendererAndCollider(grabbedItem);
             }
-            else
+            else if (!string.IsNullOrEmpty(itemName))
             {
-                foreach (MeshCollider collider in colliders)
-                {
-                    collider.enabled = false;
-                }
+                Transform namedItem = this.transform.Find(itemName);
+                EnableCollider(namedItem);
+            }
+        }
 
-                if (!string.IsNullOrEmpty(itemName))
+        private void DisableAllRenderersAndColliders()
+        {
+            foreach (MeshRenderer meshRenderer in renderers)
+            {
+                meshRenderer.enabled = false;
+            }
+
+            foreach (MeshCollider collider in colliders)
+            {
+                collider.enabled = false;
+            }
+        }
+
+        private void EnableRendererAndCollider(Transform item)
+        {
+            if (item != null)
+            {
+                MeshRenderer meshRenderer = item.GetComponent<MeshRenderer>();
+                MeshCollider meshCollider = item.GetComponent<MeshCollider>();
+
+                if (meshRenderer != null && meshCollider != null)
                 {
-                    Transform namedItem = this.transform.Find(itemName);
-                    if (namedItem != null)
-                    {
-                        namedItem.GetComponent<MeshCollider>().enabled = true;
-                    }
+                    meshRenderer.enabled = true;
+                    meshCollider.enabled = true;
                 }
             }
         }
+
+        private void EnableCollider(Transform item)
+        {
+            if (item != null)
+            {
+                MeshCollider meshCollider = item.GetComponent<MeshCollider>();
+                if (meshCollider != null)
+                {
+                    meshCollider.enabled = true;
+                }
+            }
+        }
+
     }
 }

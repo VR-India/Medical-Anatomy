@@ -20,7 +20,6 @@ public class GhostSnap : MonoBehaviour
 
             // Disable the MeshRenderer of this object
             this.GetComponent<MeshRenderer>().enabled = false;
-            //Tweens.Instance.ResetTransform(other.gameObject, other.gameObject.transform.position, other.gameObject.transform.rotation,3f);
         }
     }
 }
